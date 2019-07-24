@@ -1,0 +1,154 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px;
+}
+
+header {
+    display: flex;
+    height: 72px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px lightgray;
+    justify-content: space-between;
+    position: relative;
+}
+
+#title {
+    margin-left: 24px;
+    color: rgb(72, 145, 255);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    margin-right: 24px;
+
+}
+
+main {
+    display: flex;
+    /* background: aquamarine; */
+    height: calc(100vh - 72px);
+    align-items: stretch;
+}
+
+/* Play list -------------------------------------------------------------- */
+
+#play-list {
+    flex: 0 0 480px;
+    /* background-color: rebeccapurple; */
+    overflow-y: auto;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+    padding-top: 24px;
+}
+
+li {
+    width: 350px;
+    margin: auto;
+    margin-bottom: 36px;
+}
+
+li > div {
+    height: 200px;
+    width: 350px;
+    background-color: lightgrey;
+}
+
+li > h3 {
+    margin-left: 4px;
+    font-size: 1.1em;
+}
+
+/* Video player ----------------------------------------------------------- */
+
+#video-player-layout {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    /* background-color: aqua */
+    justify-content: center;
+    align-items: center;
+}
+
+#video-player-layout > h2 {
+    width: 800px;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+#video-player {
+    position: relative;
+    height: 500px;
+    background-color: aliceblue;
+}
+
+video {
+    width: 800px;
+    height: 500px;
+    background-color: black;
+}
+
+#control-bar {
+    position: absolute;
+    display: none;
+    height: 60px;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    align-items: center;
+}
+
+#progressbar {
+    width: 100%;
+}
+
+#buttons-layout {
+    display: flex;
+}
+
+.controls {
+    width: 36px;
+    height: 36px;
+    margin: 0px 8px 0px 8px;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px 32px;
+}
+
+#button-play {
+    background-image: url('/images/play.svg')
+}
+
+#button-replay {
+    background-image: url('/images/replay.svg');
+    background-size: 28px 28px;
+}
+
+#button-nextplay {
+    background-image: url('/images/replay.svg');
+    background-size: 28px 28px;
+}
+
+#button-volume {
+    background-image: url('/images/volume_up.svg');
+    margin-left: auto;
+    background-size: 24px 24px;
+}
+
+#volumen {
+    margin-right: auto;
+}
+
+#button-fullscreen {
+    background-image: url('/images/fullscreen.svg');
+}

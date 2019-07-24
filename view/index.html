@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Player</title>
+    <link href="css/index.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h2 id="title">Demo Player</h2>
+        <nav>
+            <a href="skjdksf">About</a>
+            <a href="dkfsjlk">Logout</a>
+        </nav>
+    </header>
+    <main>
+        
+        <!-- Play list ----------------------------------------------------------->
+        <div id="play-list">
+            <ul>
+                <li>
+                    <div></div>
+                    <h3>Funny videos of pets</h3>
+                </li>
+                <li>
+                    <div></div>
+                    <h3>Funny videos of pets</h3>
+                </li>
+                <li>
+                    <div></div>
+                    <h3>Funny videos of pets</h3>
+                </li>
+                <li>
+                    <div></div>
+                    <h3>Funny videos of pets</h3>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Video player -------------------------------------------------------->
+        <div id="video-player-layout">
+
+            <div id="video-player">
+                <video src="https://interactive-examples.mdn.mozilla.net/media/examples/flower.webm"></video>
+                <div id="control-bar">
+
+                    <progress id="progressbar" value="0" max="100"></progress>
+
+                    <div id="buttons-layout">
+                        <button class="controls" id="button-play"></button>
+                        <button class="controls" id="button-replay"></button>
+                        <button class="controls" id="button-nextplay"></button>
+                        <button class="controls" id="button-volume"></button>
+                        <input id="volumen" type="range" min="0" max="10" value="0">
+                        <button class="controls" id="button-fullscreen"></button>
+                    </div>
+                    
+                </div>
+            </div>
+            <h2>Funny videos of pets</h2>
+        </div>
+    </main>
+    <script src="javascript/index.js"></script>
+</body>
+</html>
