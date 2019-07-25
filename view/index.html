@@ -13,53 +13,52 @@
             <a href="dkfsjlk">Logout</a>
         </nav>
     </header>
+
+    <template id="my-template">
+        <h1 id="hola">Hola mundo plantilla</h1>
+    </template>
+
     <main>
         
         <!-- Play list ----------------------------------------------------------->
-        <div id="play-list">
-            <ul>
-                <li>
-                    <div></div>
-                    <h3>Funny videos of pets</h3>
-                </li>
-                <li>
-                    <div></div>
-                    <h3>Funny videos of pets</h3>
-                </li>
-                <li>
-                    <div></div>
-                    <h3>Funny videos of pets</h3>
-                </li>
-                <li>
-                    <div></div>
-                    <h3>Funny videos of pets</h3>
-                </li>
+        <div id="play-list-frame">
+            <ul id="play-list">
+                {{#each videos}}
+                    <li>
+                        <div></div>
+                        <h3>{{this.nombre}}</h3>
+                    </li>
+                {{/each}}
             </ul>
         </div>
 
         <!-- Video player -------------------------------------------------------->
-        <div id="video-player-layout">
-
-            <div id="video-player">
-                <video src="https://interactive-examples.mdn.mozilla.net/media/examples/flower.webm"></video>
-                <div id="control-bar">
-
-                    <progress id="progressbar" value="0" max="100"></progress>
-
-                    <div id="buttons-layout">
-                        <button class="controls" id="button-play"></button>
-                        <button class="controls" id="button-replay"></button>
-                        <button class="controls" id="button-nextplay"></button>
-                        <button class="controls" id="button-volume"></button>
-                        <input id="volumen" type="range" min="0" max="10" value="0">
-                        <button class="controls" id="button-fullscreen"></button>
+        <template id="video-player-element">
+            <style>
+                @import "css/video_player_element.css";
+            </style>
+            <button class="controls" id="close"></button>
+            <div id="video-player-layout">
+                <div id="video-player">
+                    <video src="http://localhost:8080/videos/demo.mp4"></video>
+                    <div id="control-bar">
+                        <progress id="progressbar" value="0" max="100"></progress>
+                        <div id="buttons-layout">
+                            <button class="controls" id="button-play"></button>
+                            <button class="controls" id="button-replay"></button>
+                            <button class="controls" id="button-nextplay"></button>
+                            <button class="controls" id="button-volume"></button>
+                            <input id="volumen" type="range" min="0" max="10" value="0">
+                            <button class="controls" id="button-fullscreen"></button>
+                        </div>       
                     </div>
-                    
                 </div>
+                <h2>Funny videos of pets</h2>
             </div>
-            <h2>Funny videos of pets</h2>
-        </div>
+        </template>
+        
     </main>
+    <script src="javascript/videoPlayerElement.js"></script>
     <script src="javascript/index.js"></script>
 </body>
 </html>

@@ -1,33 +1,20 @@
-const videoPlayer = document.querySelector('#video-player');
-const controlsBar = document.querySelector('#control-bar');
-const video = document.querySelector('video')
-const buttonPlay = document.querySelector('#button-play');
-const progress = document.querySelector('#progressbar');
+const main = document.querySelector('main')
+const playList = document.querySelector('#play-list')
 
-videoPlayer.onmouseover = (event) => {
-    controlsBar.style.display = "block"
-}
+playList.onclick = (event) => {
 
-videoPlayer.onmouseout = (event) => {
-    controlsBar.style.display = "none"
-}
+    let element = event.target
+    if (element.nodeName != "LI") return;
 
-buttonPlay.onclick = () => {
-    
-    if (video.paused || video.ended) {
-    
-        video.play();
+    let videoPlayerFrame = main.querySelector('video-player-element');
+
+    if (!videoPlayerFrame) {
+        videoPlayerFrame = document.createElement('video-player-element');
+        //videoPlayerFrame.name = element.dataset.name;
+        main.append(videoPlayerFrame)
     
     } else {
-    
-        video.pause();
+
+        //videoPlayerFrame.name = element.dataset.name;
     }
 }
-
-video.addEventListener('loadedmetadata', function() {
-    progress.setAttribute('max', video.duration);
-});
-
-video.addEventListener('timeupdate', function() {
-    progress.value = Math.floor((video.currentTime / video.duration) * 100);
- });

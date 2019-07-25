@@ -1,0 +1,92 @@
+:host {
+    flex: 4 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+}
+
+.controls {
+    width: 36px;
+    height: 36px;
+    margin: 0px 8px 0px 8px;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px 32px;
+    outline: none;
+}
+
+#close {
+    background-image: url("/images/close.svg");
+    position: absolute;
+    right: 12px;
+    top: 16px;
+}
+
+h2 {
+    width: 800px;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+#video-player {
+    position: relative;
+    height: 500px;
+    background-color: aliceblue;
+}
+
+video {
+    width: 800px;
+    height: 500px;
+    background-color: black;
+}
+
+#control-bar {
+    position: absolute;
+    display: none;
+    height: 60px;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    align-items: center;
+}
+
+#progressbar {
+    width: 100%;
+}
+
+#buttons-layout {
+    display: flex;
+}
+
+#button-play {
+    background-image: url('/images/play.svg')
+}
+
+#button-replay {
+    background-image: url('/images/replay.svg');
+    background-size: 28px 28px;
+}
+
+#button-nextplay {
+    background-image: url('/images/replay.svg');
+    background-size: 28px 28px;
+}
+
+#button-volume {
+    background-image: url('/images/volume_up.svg');
+    margin-left: auto;
+    background-size: 24px 24px;
+}
+
+#volumen {
+    margin-right: auto;
+}
+
+#button-fullscreen {
+    background-image: url('/images/fullscreen.svg');
+}

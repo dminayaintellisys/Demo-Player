@@ -38,21 +38,29 @@ main {
 
 /* Play list -------------------------------------------------------------- */
 
-#play-list {
-    flex: 0 0 480px;
-    /* background-color: rebeccapurple; */
-    overflow-y: auto;
+#play-list-frame {
+    flex: 1 1 22%;
 }
 
 ul {
     list-style: none;
     padding: 0px;
+    margin: 0px;
     padding-top: 24px;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    justify-content: space-around;
+    overflow-y: auto;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 li {
+    flex: 0;
     width: 350px;
-    margin: auto;
+    margin-left: 12px;
+    margin-right: 12px;
     margin-bottom: 36px;
 }
 
@@ -60,95 +68,38 @@ li > div {
     height: 200px;
     width: 350px;
     background-color: lightgrey;
+    pointer-events: none;
 }
 
 li > h3 {
     margin-left: 4px;
     font-size: 1.1em;
+    pointer-events: none;
 }
 
-/* Video player ----------------------------------------------------------- */
-
-#video-player-layout {
-    flex: 1;
+/*video-player-element {
+    flex: 4 0 auto;
     display: flex;
     flex-flow: column;
-    /* background-color: aqua */
+    /* background-color: aqua 
     justify-content: center;
     align-items: center;
+}*/
+
+.slide-in { 
+    animation: slide-in 6100ms; 
 }
 
-#video-player-layout > h2 {
-    width: 800px;
-    font-weight: 500;
-    margin-left: 8px;
+.slide-out { 
+    animation: slide-out 600ms; 
 }
 
-#video-player {
-    position: relative;
-    height: 500px;
-    background-color: aliceblue;
+@keyframes slide-in {
+    from { width: 0px; }
+    to { width: auto; }
 }
 
-video {
-    width: 800px;
-    height: 500px;
-    background-color: black;
-}
-
-#control-bar {
-    position: absolute;
-    display: none;
-    height: 60px;
-    width: 100%;
-    bottom: 0px;
-    left: 0px;
-    align-items: center;
-}
-
-#progressbar {
-    width: 100%;
-}
-
-#buttons-layout {
-    display: flex;
-}
-
-.controls {
-    width: 36px;
-    height: 36px;
-    margin: 0px 8px 0px 8px;
-    border: none;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 32px 32px;
-}
-
-#button-play {
-    background-image: url('/images/play.svg')
-}
-
-#button-replay {
-    background-image: url('/images/replay.svg');
-    background-size: 28px 28px;
-}
-
-#button-nextplay {
-    background-image: url('/images/replay.svg');
-    background-size: 28px 28px;
-}
-
-#button-volume {
-    background-image: url('/images/volume_up.svg');
-    margin-left: auto;
-    background-size: 24px 24px;
-}
-
-#volumen {
-    margin-right: auto;
-}
-
-#button-fullscreen {
-    background-image: url('/images/fullscreen.svg');
+@keyframes slide-out {
+    from { width: auto; }
+    to { width: 0px; }
 }
