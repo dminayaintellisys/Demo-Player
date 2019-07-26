@@ -1,5 +1,8 @@
 class VideoPlayerElement extends HTMLElement {
 
+    title = {}
+    video = {}
+
     constructor() {
         super();
 
@@ -11,9 +14,10 @@ class VideoPlayerElement extends HTMLElement {
         const close = shadow.querySelector('#close');
         const videoPlayer = shadow.querySelector('#video-player');
         const controlsBar = shadow.querySelector('#control-bar');
-        const video = shadow.querySelector('video');
+        this.video = shadow.querySelector('video');
         const buttonPlay = shadow.querySelector('#button-play');
         const progress = shadow.querySelector('#progressbar');
+        this.title = shadow.querySelector('#title')
 
         close.onclick = () => {
 
@@ -37,23 +41,25 @@ class VideoPlayerElement extends HTMLElement {
         
         buttonPlay.onclick = () => {
             
-            if (video.paused || video.ended) {
-            
-                video.play();
-            
+            if (this.video.paused || this.video.ended) {
+                this.video.play();
             } else {
-            
-                video.pause();
+                this.video.pause();
             }
         }
         
-        video.addEventListener('loadedmetadata', function() {
-            progress.setAttribute('max', video.duration);
+        this.video.addEventListener('loadedmetadata', function() {
+            progress.setAttribute('max', this.video.duration);
         });
         
-        video.addEventListener('timeupdate', function() {
-            progress.value = Math.floor((video.currentTime / video.duration) * 100);
+        this.video.addEventListener('timeupdate', function() {
+            // progress.value = Math.floor((video.currentTime / video.duration) * 100);
         });
+    }
+
+    set name(value) {
+        this.video.src = 'http://localhost:8080/videos/' + value
+        this.title.innerText = value;
     }
 
 }

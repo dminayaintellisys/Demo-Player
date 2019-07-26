@@ -10,11 +10,8 @@ playList.onclick = (event) => {
 
     if (!videoPlayerFrame) {
         videoPlayerFrame = document.createElement('video-player-element');
-        //videoPlayerFrame.name = element.dataset.name;
         main.append(videoPlayerFrame)
-    
-    } else {
-
-        //videoPlayerFrame.name = element.dataset.name;
     }
+     
+    videoPlayerFrame.name = element.dataset.name;
 }
