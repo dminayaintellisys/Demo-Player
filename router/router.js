@@ -2,19 +2,26 @@ const express = require('express')
 const router = express.Router()
 const fs = require('fs')
 const bodyParse = require('body-parser')
+const Video = require('../model/Video')
 
+// https://expressjs.com/en/guide/routing.html
 router.use(express.static(process.cwd() + '/public'))
 router.use('/videos/:video', bodyParse.urlencoded())
 
-router.get('/', (req, res) => {
-
-    const videos = fs.readdirSync(process.cwd() + "/videos")
+router.get('/', async (req, res) => {
+    const videos = await Video.find()
     res.render(process.cwd() + '/view/index.html', { "videos": videos })
+})
+
+router.get('/thumbnails/:name', (req, res) => {
+    res.sendFile(process.cwd() + `/thumbnails/${req.params.name}`)
 })
 
 router.get('/videos/:video', (req, res) => {
 
-    const path = process.cwd() + '/videos/' + req.params.video
+    // https://medium.com/better-programming/video-stream-with-node-js-and-html5-320b3191a6b6
+
+    const path = process.cwd() +'/videos/'+ req.params.video
     const size = fs.statSync(path).size
     const range = req.header.range
 

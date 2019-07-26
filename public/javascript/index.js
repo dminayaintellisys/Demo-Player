@@ -14,4 +14,5 @@ playList.onclick = (event) => {
     }
      
     videoPlayerFrame.name = element.dataset.name;
+    videoPlayerFrame.path = element.dataset.path;
 }

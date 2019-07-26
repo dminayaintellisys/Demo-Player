@@ -43,8 +43,10 @@ class VideoPlayerElement extends HTMLElement {
             
             if (this.video.paused || this.video.ended) {
                 this.video.play();
+                buttonPlay.style.backgroundImage = "url('/images/pause.svg')";
             } else {
                 this.video.pause();
+                buttonPlay.style.backgroundImage = "url('/images/play.svg')";
             }
         }
         
@@ -53,12 +55,15 @@ class VideoPlayerElement extends HTMLElement {
         });
         
         this.video.addEventListener('timeupdate', function() {
-            // progress.value = Math.floor((video.currentTime / video.duration) * 100);
+            progress.value = Math.floor((this.video.currentTime / this.video.duration) * 100);
         });
     }
 
+    set path(value) {
+        this.video.src = `/videos/${value}`
+    }
+
     set name(value) {
-        this.video.src = 'http://localhost:8080/videos/' + value
         this.title.innerText = value;
     }
 

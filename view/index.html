@@ -24,9 +24,9 @@
         <div id="play-list-frame">
             <ul id="play-list">
                 {{#each videos}}
-                    <li data-name="{{this}}">
-                        <div></div>
-                        <h3>{{this}}</h3>
+                    <li data-name="{{this.name}}" data-path="{{this.path}}">
+                        <img src="{{this.thumbnail}}">
+                        <h3>{{this.name}}</h3>
                     </li>
                 {{/each}}
             </ul>
@@ -40,7 +40,7 @@
             <button class="controls" id="close"></button>
             <div id="video-player-layout">
                 <div id="video-player">
-                    <video src="http://localhost:8080/videos/demo.mp4"></video>
+                    <video></video>
                     <div id="control-bar">
                         <progress id="progressbar" value="0" max="100"></progress>
                         <div id="buttons-layout">
@@ -53,7 +53,7 @@
                         </div>       
                     </div>
                 </div>
-                <h2 id="title">Funny videos of pets</h2>
+                <h2 id="title"></h2>
             </div>
         </template>
         

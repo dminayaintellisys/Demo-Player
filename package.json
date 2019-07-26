@@ -14,7 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "hbs": "^4.0.4"
+    "ffmpeg-extract-frames": "^2.0.2",
+    "hbs": "^4.0.4",
+    "mongoose": "^5.6.6"
   },
   "devDependencies": {
     "livereload": "^0.8.0",

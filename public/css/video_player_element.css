@@ -28,15 +28,15 @@
 }
 
 h2 {
-    width: 700px;
+    width: 896px;
     font-weight: 500;
     margin-left: 8px;
 }
 
 #video-player {
     position: relative;
-    width: 700px;
-    height: 450px;
+    width: 896px;
+    height: 504px;
     background-color: aliceblue;
 }
 
