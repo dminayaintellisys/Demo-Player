@@ -1,23 +1,19 @@
-:host {
+#video-player-frame {
     flex: 4 0 auto;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    
 }
 
 .controls {
-    width: 36px;
-    height: 36px;
     margin: 0px 8px 0px 8px;
     border: none;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 32px 32px;
     outline: none;
+    color: white;
+    font-size: 32px;
+    background-color: transparent;
 }
 
 #close {
@@ -27,29 +23,28 @@
     top: 16px;
 }
 
-h2 {
-    width: 896px;
+#video-player-frame-title {
+    width: 704px;
     font-weight: 500;
     margin-left: 8px;
 }
 
 #video-player {
     position: relative;
-    width: 896px;
-    height: 504px;
+    width: 704px;
+    height: 396px;
     background-color: aliceblue;
 }
 
 video {
-    width: 100%;
+    width: 704px;
     height: 100%;
     background-color: black;
 }
 
 #control-bar {
     position: absolute;
-    display: none;
-    height: 60px;
+    visibility: hidden;
     width: 100%;
     bottom: 0px;
     left: 0px;
@@ -62,32 +57,28 @@ video {
 
 #buttons-layout {
     display: flex;
-}
-
-#button-play {
-    background-image: url('/images/play.svg')
+    height: 52px;
+    align-items: center;
 }
 
 #button-replay {
-    background-image: url('/images/replay.svg');
-    background-size: 28px 28px;
+    font-size: 28px;
 }
 
 #button-nextplay {
-    background-image: url('/images/replay.svg');
-    background-size: 28px 28px;
+    font-size: 28px;
 }
 
 #button-volume {
-    background-image: url('/images/volume_up.svg');
     margin-left: auto;
-    background-size: 24px 24px;
+    font-size: 26px;
 }
 
 #volumen {
+    width: 150px;
     margin-right: auto;
 }
 
-#button-fullscreen {
-    background-image: url('/images/fullscreen.svg');
+#bar {
+    background-color: #e6e6e6;
 }

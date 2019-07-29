@@ -1,18 +1,21 @@
+import {VideoPlayerFrame} from './VideoPlayerFrame.mjs';
+
 const main = document.querySelector('main')
 const playList = document.querySelector('#play-list')
+var videoPlayerFrame = null
 
 playList.onclick = (event) => {
 
-    let element = event.target
+    const element = event.target
     if (element.nodeName != "LI") return;
 
-    let videoPlayerFrame = main.querySelector('video-player-element');
+    if (!VideoPlayerFrame.exists()) {
+        videoPlayerFrame = null;
+    }
 
     if (!videoPlayerFrame) {
-        videoPlayerFrame = document.createElement('video-player-element');
-        main.append(videoPlayerFrame)
+        videoPlayerFrame = new VideoPlayerFrame(main);
     }
-     
-    videoPlayerFrame.name = element.dataset.name;
-    videoPlayerFrame.path = element.dataset.path;
+
+    videoPlayerFrame.updateVideo(element.dataset.name, element.dataset.path)
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Player</title>
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/video_player_element.css" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h2 id="title">Demo Player</h2>
+        <nav>
+            <a href="skjdksf">About</a>
+            <a href="dkfsjlk">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Play list ----------------------------------------------------------->
+        <div id="play-list-frame">
+            <ul id="play-list">
+                {{#each videos}}
+                    <li data-name="{{this.name}}" data-path="{{this.path}}">
+                        <img src="{{this.thumbnail_path}}">
+                        <h3>{{this.name}}</h3>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!-- Video player -------------------------------------------------------->
+        <template id="video-player-template">
+            <div id="video-player-frame">
+                <button class="controls" id="close"></button>
+                <div id="video-player-layout">
+                    <div id="video-player">
+                        <video></video>
+                        <div id="control-bar">
+                            <div id="progressbar" role="progressbar" class="mdc-linear-progress">
+                                <div class="mdc-linear-progress__buffering-dots"></div>
+                                <div class="mdc-linear-progress__buffer"></div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                                  <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                                  <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                            </div>
+                            <div id="buttons-layout">
+                                <button class="controls material-icons" id="button-play">play_arrow</button>
+                                <button class="controls material-icons" id="button-replay">replay_10</button>
+                                <button class="controls material-icons" id="button-nextplay">forward_10</button>
+                                <button class="controls material-icons" id="button-volume">volume_up</button>
+                                <div id="volumen" class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Select Value">
+                                    <div id="bar" class="mdc-slider__track-container">
+                                        <div class="mdc-slider__track"></div>
+                                    </div>
+                                    <div class="mdc-slider__thumb-container">
+                                        <svg class="mdc-slider__thumb" width="21" height="21">
+                                            <circle cx="10.5" cy="10.5" r="7.875"></circle>
+                                        </svg>
+                                        <div class="mdc-slider__focus-ring"></div>
+                                    </div>
+                                </div>
+                                <button class="controls material-icons" id="button-fullscreen">fullscreen</button>
+                            </div>       
+                        </div>
+                    </div>
+                    <h2 id="video-player-frame-title"></h2>
+                </div>
+            </div>
+        </template>
+    </main>
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script type="module" src="javascript/index.js"></script>
+</body>
+</html>

@@ -2,15 +2,15 @@ const express = require('express')
 const router = express.Router()
 const fs = require('fs')
 const bodyParse = require('body-parser')
-const Video = require('../model/Video')
+const Video = require('../models/Video')
 
 // https://expressjs.com/en/guide/routing.html
 router.use(express.static(process.cwd() + '/public'))
-router.use('/videos/:video', bodyParse.urlencoded())
+router.use('/videos/:video', bodyParse.urlencoded({ extended: true }))
 
 router.get('/', async (req, res) => {
     const videos = await Video.find()
-    res.render(process.cwd() + '/view/index.html', { "videos": videos })
+    res.render(process.cwd() + '/views/index.html', { "videos": videos })
 })
 
 router.get('/thumbnails/:name', (req, res) => {
