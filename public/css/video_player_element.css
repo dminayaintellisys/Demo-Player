@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    --width-video-player: 960px;
 }
 
 .controls {
@@ -17,27 +18,30 @@
 }
 
 #close {
-    background-image: url("/images/close.svg");
+    color: black;
     position: absolute;
-    right: 12px;
+    right: 16px;
     top: 16px;
+    font-size: 32px;
+    width: 54px;
+    height: 54px;
 }
 
 #video-player-frame-title {
-    width: 704px;
+    width: var(--width-video-player);
     font-weight: 500;
     margin-left: 8px;
 }
 
 #video-player {
     position: relative;
-    width: 704px;
-    height: 396px;
+    width: var(--width-video-player);
+    height: 540px;
     background-color: aliceblue;
 }
 
 video {
-    width: 704px;
+    width: var(--width-video-player);
     height: 100%;
     background-color: black;
 }

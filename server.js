@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 const User = require('./models/User')
 const Video = require('./models/Video')
 
-const HOST = "localhost";
+const HOST = "10.0.1.166";
 const PORT = 8080;
 const DEV_PORT_LIVERELOAD = 35729;
 
@@ -22,6 +22,7 @@ const extractFrames = require('ffmpeg-extract-frames')
 // Settup the server
 app.set('view engine', 'html')
 app.engine('html', hbs.__express)
+app.use(require('connect-livereload')({port: DEV_PORT_LIVERELOAD}))
 
 // Settup the database
 mongoose.connect(`mongodb://${HOST}/demoplayer`, {useNewUrlParser: true})
@@ -34,10 +35,9 @@ app.listen(8080, HOST, async () =>  {
 })
 
 // Reload the browser when some file is edited
-app.use(require('connect-livereload')({port: DEV_PORT_LIVERELOAD}))
-const reloadServer = livereload.createServer({exts: [ 'html', 'js', 'css']});
+const reloadServer = livereload.createServer({exts: [ 'html', 'js', 'css', 'mjs']});
 
-reloadServer.watch(__dirname + '/view');
+reloadServer.watch(__dirname + '/views');
 reloadServer.watch(__dirname + '/public/css');
 reloadServer.watch(__dirname + '/public/javascript');
 

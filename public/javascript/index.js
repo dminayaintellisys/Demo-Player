@@ -2,7 +2,7 @@ import {VideoPlayerFrame} from './VideoPlayerFrame.mjs';
 
 const main = document.querySelector('main')
 const playList = document.querySelector('#play-list')
-var videoPlayerFrame = null
+var videoPlayerFrame = null;
 
 playList.onclick = (event) => {
 

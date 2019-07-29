@@ -22,5 +22,8 @@
   "devDependencies": {
     "livereload": "^0.8.0",
     "connect-livereload": "^0.6.1"
+  },
+  "nodemonConfig": {
+    "watch": ["server.js", "router/*"]
   }
 }
