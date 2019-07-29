@@ -29,7 +29,7 @@ mongoose.connect(`mongodb://${HOST}/demoplayer`, {useNewUrlParser: true})
 
 // Listen the http requests
 app.use('/', router)
-app.listen(8080, HOST, async () =>  {
+app.listen(PORT, HOST, async () =>  {
     console.log(`http://${HOST}:${PORT}/`)
     await fillDatabase();
 })

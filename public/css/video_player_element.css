@@ -48,11 +48,26 @@ video {
 
 #control-bar {
     position: absolute;
-    visibility: hidden;
+    visibility: visible;
     width: 100%;
     bottom: 0px;
     left: 0px;
     align-items: center;
+}
+
+#time-frame {
+    display: flex;
+}
+
+.count-time {
+    display: block;
+    color: white;
+    margin: 4px;
+    font-size: 14px;
+}
+
+#final-time {
+    margin-left: auto;
 }
 
 #progressbar {
@@ -85,4 +100,9 @@ video {
 
 #bar {
     background-color: #e6e6e6;
+}
+
+#touch-progress {
+    padding-top: 4px;
+    padding-bottom: 4px;
 }

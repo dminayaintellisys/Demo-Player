@@ -23,6 +23,8 @@ export class VideoPlayerFrame {
         const volumen = mdc.slider.MDCSlider.attachTo(frame.querySelector('.mdc-slider'));
         const replay = frame.querySelector('#button-replay');
         const fullScreen = frame.querySelector('#button-fullscreen')
+        const currentTime = frame.querySelector('#current-time');
+        const finalTime = frame.querySelector('#final-time');
 
         let lastVolumeValue = 0.5;
         this.video.volume = lastVolumeValue;
@@ -40,24 +42,40 @@ export class VideoPlayerFrame {
             document.onkeydown = null;
         }
 
-        videoPlayer.onmouseover = (event) => {
+        /*videoPlayer.onmouseover = (event) => {
             controlsBar.style.visibility = "visible"
         }
 
         videoPlayer.onmouseout = (event) => {
             controlsBar.style.visibility = "hidden"
-        }
+        }*/
 
         this.buttonPlay.onclick = onclick
+
+        this.video.onloadedmetadata = () => {
+            finalTime.innerText = formatCurrentTime(this.video.duration)
+        }
 
         this.video.ontimeupdate = () => {
             const progressValue = Math.round((this.video.currentTime / this.video.duration) * 100) / 100
             this.progress.progress = progressValue
+            currentTime.innerText = formatCurrentTime(this.video.currentTime)
         }
 
         this.video.onended = () => {
             this.buttonPlay.innerText = "play_arrow";
         }
+
+        frame.querySelector('#touch-progress').onclick = function(e) {
+            var pos = (e.pageX  - this.offsetLeft) / this.offsetWidth;
+            context.progress.progress = pos * context.video.duration
+            console.log('progress: ' + pos)
+        }
+
+        this.progress.listen('MDCLinearProgress:click', (e) => {
+            
+            //video.currentTime = pos * video.duration;
+        });
 
         buttonVolume.onclick = () => {
 
@@ -114,9 +132,9 @@ export class VideoPlayerFrame {
         document.onfullscreenchange = () => {
 
             if (document.fullscreen) {
-                this.video.style.width = '100vw';
+                frame.style.setProperty('--width-video-player', '100vw');
             } else {
-                this.video.style.width = '704px';
+                frame.style.setProperty('--width-video-player', '960px');
             }
         }
 
@@ -183,6 +201,17 @@ export class VideoPlayerFrame {
             }
 
             lastVolumeValue = volumeValue
+        }
+
+        function formatCurrentTime(value) {
+
+            const valueTrunc = Math.trunc(value)
+
+            if (valueTrunc < 10) {
+                return '00:0' + valueTrunc;
+            }
+
+            return '00:' + valueTrunc;
         }
     }
 
