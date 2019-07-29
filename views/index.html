@@ -39,6 +39,11 @@
                     <div id="video-player">
                         <video></video>
                         <div id="control-bar">
+                            <div id="time-frame">
+                                <p id="current-time" class="count-time" >00:00</p> 
+                                <p id="final-time" class="count-time">10:00</p>
+                            </div>
+                            <div id="touch-progress">
                             <div id="progressbar" role="progressbar" class="mdc-linear-progress">
                                 <div class="mdc-linear-progress__buffering-dots"></div>
                                 <div class="mdc-linear-progress__buffer"></div>
@@ -49,6 +54,7 @@
                                   <span class="mdc-linear-progress__bar-inner"></span>
                                 </div>
                             </div>
+                        </div>
                             <div id="buttons-layout">
                                 <button class="controls material-icons" id="button-play">play_arrow</button>
                                 <button class="controls material-icons" id="button-replay">replay_10</button>
