@@ -21,7 +21,14 @@
     <main>
         <!-- Play list ----------------------------------------------------------->
         <div id="play-list-frame">
+            <div id="search-frame">
+                <form action="/search">
+                    <input id="input-search" type="search">
+                    <button id="button-search" class="material-icons" type="submit">search</button>
+                </form>
+            </div>
             <ul id="play-list">
+                
                 {{#each videos}}
                     <li data-name="{{this.name}}" data-url="{{this.url}}">
                         <video src="{{this.url}}"></video>

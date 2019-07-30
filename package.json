@@ -26,7 +26,8 @@
   "nodemonConfig": {
     "watch": [
       "server.js",
-      "router/*"
+      "router/*",
+      "models/*"
     ],
     "delay": "5000"
   }
