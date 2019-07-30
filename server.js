@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 const User = require('./models/User')
 const Video = require('./models/Video')
 
-const HOST = "10.0.1.166";
+const HOST = "localhost";
 const PORT = 8080;
 const DEV_PORT_LIVERELOAD = 35729;
 

@@ -24,6 +24,9 @@
     "connect-livereload": "^0.6.1"
   },
   "nodemonConfig": {
-    "watch": ["server.js", "router/*"]
+    "watch": [
+      "server.js",
+      "router/*"
+    ]
   }
 }

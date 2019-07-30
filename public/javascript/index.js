@@ -3,7 +3,7 @@ import {VideoPlayerFrame} from './VideoPlayerFrame.mjs';
 const main = document.querySelector('main')
 const playList = document.querySelector('#play-list')
 var videoPlayerFrame = new VideoPlayerFrame(main);
-videoPlayerFrame.updateVideo('demo_1', 'demo_1.mp4')
+videoPlayerFrame.updateVideo('Driving', 'https://www.videvo.net/videvo_files/converted/2014_02/preview/Microscope_5__Scientist__Videvo.mov65665.webm')
 
 playList.onclick = (event) => {
 

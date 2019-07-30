@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    --width-video-player: 960px;
+    --width-video-player: 704px;
 }
 
 .controls {
@@ -36,7 +36,7 @@
 #video-player {
     position: relative;
     width: var(--width-video-player);
-    height: 540px;
+    height: 396px;
     background-color: aliceblue;
 }
 

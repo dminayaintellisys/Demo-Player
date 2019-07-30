@@ -25,6 +25,7 @@ export class VideoPlayerFrame {
         const fullScreen = frame.querySelector('#button-fullscreen')
         const currentTime = frame.querySelector('#current-time');
         const finalTime = frame.querySelector('#final-time');
+        const touchProgress = frame.querySelector('#touch-progress');
 
         let lastVolumeValue = 0.5;
         this.video.volume = lastVolumeValue;
@@ -66,16 +67,20 @@ export class VideoPlayerFrame {
             this.buttonPlay.innerText = "play_arrow";
         }
 
-        frame.querySelector('#touch-progress').onclick = function(e) {
-            var pos = (e.pageX  - this.offsetLeft) / this.offsetWidth;
-            context.progress.progress = pos * context.video.duration
-            console.log('progress: ' + pos)
-        }
+        touchProgress.onclick = function(e) {
 
-        this.progress.listen('MDCLinearProgress:click', (e) => {
-            
-            //video.currentTime = pos * video.duration;
-        });
+            const position = e.pageX  - this.getBoundingClientRect().left
+            const percent = (position / this.offsetWidth) * 100;
+            const percentTime = context.video.duration / 100;
+            console.log(this.offsetWidth + '/' +position+ ' = ' +this.offsetWidth / position)
+            console.log('duration: ' +context.video.duration+ 'left: ' +this.getBoundingClientRect().left+ ', right: ' +this.getBoundingClientRect().right +', position: ' +(e.pageX  - this.getBoundingClientRect().left))
+            const progressValue = ((e.pageX  - this.getBoundingClientRect().left) / 100) * context.video.duration;
+            const progressValueRound = Math.round(progressValue * 1) / 1
+
+            context.video.currentTime = percent * percentTime;
+            //context.progress.progress = Math.round(((percent * percentTime) * 0.01) * 10) / 10
+            console.log('position: ' +position+ ', percent: ' +percent+ ', progress: ' +Math.round(((percent * percentTime) * 0.1) * 100) / 100)
+        }
 
         buttonVolume.onclick = () => {
 
@@ -217,7 +222,7 @@ export class VideoPlayerFrame {
 
     updateVideo(name, path) {
 
-        this.video.src = `/videos/${path}`;
+        this.video.src = `${path}`;
         this.title.innerText = name;
 
         this.buttonPlay.innerText = "play_arrow"
