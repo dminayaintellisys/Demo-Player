@@ -27,6 +27,7 @@
     "watch": [
       "server.js",
       "router/*"
-    ]
+    ],
+    "delay": "5000"
   }
 }

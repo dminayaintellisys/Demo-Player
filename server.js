@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 const User = require('./models/User')
 const Video = require('./models/Video')
 
-const HOST = "localhost";
+const HOST = "10.0.1.166";
 const PORT = 8080;
 const DEV_PORT_LIVERELOAD = 35729;
 
@@ -25,13 +25,13 @@ app.engine('html', hbs.__express)
 app.use(require('connect-livereload')({port: DEV_PORT_LIVERELOAD}))
 
 // Settup the database
-mongoose.connect(`mongodb://${HOST}/demoplayer`, {useNewUrlParser: true})
+// mongoose.connect(`mongodb://${HOST}/demoplayer`, {useNewUrlParser: true})
 
 // Listen the http requests
 app.use('/', router)
 app.listen(PORT, HOST, async () =>  {
     console.log(`http://${HOST}:${PORT}/`)
-    await fillDatabase();
+    // await fillDatabase();
 })
 
 // Reload the browser when some file is edited

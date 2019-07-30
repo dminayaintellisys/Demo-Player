@@ -3,14 +3,56 @@ const router = express.Router()
 const fs = require('fs')
 const bodyParse = require('body-parser')
 const Video = require('../models/Video')
+const videos = require('../models/videos')
+
+let currentUser = null;
+let isInvalidUser = false;
 
 // https://expressjs.com/en/guide/routing.html
 router.use(express.static(process.cwd() + '/public'))
-router.use('/videos/:video', bodyParse.urlencoded({ extended: true }))
+router.use('/login', bodyParse.urlencoded({ extended: true }))
 
 router.get('/', async (req, res) => {
-    const videos = await Video.find()
-    res.render(process.cwd() + '/views/index.html', { "videos": videos })
+
+    if (currentUser) {
+        res.render(process.cwd() + '/views/index.html', { "videos": videos.videos })
+    } else {
+        res.redirect('/login-form')
+    }
+})
+
+router.get('/login-form', (req, res) => {
+    res.render(process.cwd() + '/views/login.html', {isInvalidUser: isInvalidUser})
+})
+
+router.post('/login', (req, res) => {
+
+    const email = req.body.email;
+    const pass = req.body.pass;
+    let user = {}
+
+    for (let video of videos.videos) {
+        
+        if (video.user.email == email) {
+            
+            user = video.user;
+            break;
+        }
+    }
+
+    if (user.email == email && user.pass == pass) {
+        currentUser = user;
+        isInvalidUser = false;
+    } else {
+        isInvalidUser = true;
+    }
+
+    res.redirect('/')
+})
+
+router.get('/logout', (req, res) => {
+    currentUser = null;
+    res.redirect('/')
 })
 
 router.get('/thumbnails/:name', (req, res) => {

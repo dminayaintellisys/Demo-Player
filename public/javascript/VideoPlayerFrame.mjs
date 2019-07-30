@@ -3,6 +3,8 @@ export class VideoPlayerFrame {
     static KEY_SPACE = ' '
     static KEY_ARROW_UP = 'ArrowUp'
     static KEY_ARROW_DOWN = 'ArrowDown'
+    static KEY_ARROW_LEFT = 'ArrowLeft'
+    static KEY_ARROW_RIGHT = 'ArrowRight'
 
     constructor(parent) {
 
@@ -22,6 +24,7 @@ export class VideoPlayerFrame {
         const buttonVolume = frame.querySelector('#button-volume')
         const volumen = mdc.slider.MDCSlider.attachTo(frame.querySelector('.mdc-slider'));
         const replay = frame.querySelector('#button-replay');
+        const buttonForward = frame.querySelector('#button-forward');
         const fullScreen = frame.querySelector('#button-fullscreen')
         const currentTime = frame.querySelector('#current-time');
         const finalTime = frame.querySelector('#final-time');
@@ -43,13 +46,13 @@ export class VideoPlayerFrame {
             document.onkeydown = null;
         }
 
-        /*videoPlayer.onmouseover = (event) => {
+        videoPlayer.onmouseover = (event) => {
             controlsBar.style.visibility = "visible"
         }
 
         videoPlayer.onmouseout = (event) => {
             controlsBar.style.visibility = "hidden"
-        }*/
+        }
 
         this.buttonPlay.onclick = onclick
 
@@ -72,14 +75,7 @@ export class VideoPlayerFrame {
             const position = e.pageX  - this.getBoundingClientRect().left
             const percent = (position / this.offsetWidth) * 100;
             const percentTime = context.video.duration / 100;
-            console.log(this.offsetWidth + '/' +position+ ' = ' +this.offsetWidth / position)
-            console.log('duration: ' +context.video.duration+ 'left: ' +this.getBoundingClientRect().left+ ', right: ' +this.getBoundingClientRect().right +', position: ' +(e.pageX  - this.getBoundingClientRect().left))
-            const progressValue = ((e.pageX  - this.getBoundingClientRect().left) / 100) * context.video.duration;
-            const progressValueRound = Math.round(progressValue * 1) / 1
-
             context.video.currentTime = percent * percentTime;
-            //context.progress.progress = Math.round(((percent * percentTime) * 0.01) * 10) / 10
-            console.log('position: ' +position+ ', percent: ' +percent+ ', progress: ' +Math.round(((percent * percentTime) * 0.1) * 100) / 100)
         }
 
         buttonVolume.onclick = () => {
@@ -115,9 +111,11 @@ export class VideoPlayerFrame {
         })
 
         replay.onclick = () => {
-            const replay10Seconds = this.video.currentTime - 10;
-            console.log('current time: ' +this.video.currentTime+ ', replay: ' +replay10Seconds)
-            this.video.currentTime = replay10Seconds;
+            this.video.currentTime -= 5;
+        }
+
+        buttonForward.onclick = () => {
+            this.video.currentTime += 5;
         }
 
         fullScreen.onclick = () => {
@@ -151,6 +149,14 @@ export class VideoPlayerFrame {
                     onclick()
                     break;
 
+                case VideoPlayerFrame.KEY_ARROW_LEFT:
+                    this.video.currentTime -= 5;
+                    break;
+
+                case VideoPlayerFrame.KEY_ARROW_RIGHT:
+                    this.video.currentTime += 5;
+                    break;
+
                 case VideoPlayerFrame.KEY_ARROW_UP: 
                     volumeUp()
                     break;
@@ -159,6 +165,9 @@ export class VideoPlayerFrame {
                     volumeDown()
                     break;
             }
+
+            event.stopPropagation();
+            event.preventDefault();
         }
 
         function onclick() {
