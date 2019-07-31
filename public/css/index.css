@@ -37,7 +37,6 @@ nav a {
 
 main {
     display: flex;
-    /* background: aquamarine; */
     height: calc(100vh - 72px);
     align-items: stretch;
 }
@@ -47,6 +46,7 @@ main {
 #play-list-frame {
     flex: 1 1 22%;
     overflow-y: auto;
+    box-shadow: 1px 1px 2px lightgray;
 }
 
 #search-frame {
@@ -61,7 +61,6 @@ main {
     flex: 0 1 560px;
     display: flex;
     min-width: 350px;
-    background-color: aliceblue;
     margin: 0px 80px;
     box-shadow: 0px 1px 3px lightgray;
 }
@@ -81,6 +80,7 @@ main {
     background-color: var(--mdc-theme-primary);
     color: white;
     border: none;
+    outline: none;
 }
 
 ul {
@@ -111,8 +111,9 @@ li > video {
 
 li > h3 {
     margin-left: 4px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     pointer-events: none;
+    font-weight: normal;
 }
 
 .slide-in { 

@@ -13,7 +13,6 @@
     <header>
         <h2 id="title">Demo Player</h2>
         <nav>
-            <a href="skjdksf">About</a>
             <a href="/logout">Logout</a>
         </nav>
     </header>
@@ -22,20 +21,26 @@
         <!-- Play list ----------------------------------------------------------->
         <div id="play-list-frame">
             <div id="search-frame">
-                <form action="/search">
-                    <input id="input-search" type="search">
+                <form onsubmit="return false">
+                    <input name="text" id="input-search" type="search">
                     <button id="button-search" class="material-icons" type="submit">search</button>
                 </form>
             </div>
             <ul id="play-list">
-                
-                {{#each videos}}
+                <!-- TODO: recuerda eliminar este codigo -->
+                <!--{{#each videos}}
                     <li data-name="{{this.name}}" data-url="{{this.url}}">
                         <video src="{{this.url}}"></video>
                         <h3>{{this.name}}</h3>
                     </li>
-                {{/each}}
+                {{/each}}-->
             </ul>
+            <template id="item-template">
+                <li>
+                    <video></video>
+                    <h3></h3>
+                </li>
+            </template>
         </div>
 
         <!-- Video player -------------------------------------------------------->

@@ -4,18 +4,18 @@ const bodyParse = require('body-parser')
 const User = require('../models/User')
 const Video = require('../models/Video')
 
-let currentUser = null;
+let currentUser = {}; // TODO: recuerda cambiar esto a null
 let isInvalidUser = false;
 
 // https://expressjs.com/en/guide/routing.html
 router.use(express.static(process.cwd() + '/public'))
-router.use('/login', bodyParse.urlencoded({ extended: true }))
+router.use('/login', bodyParse.urlencoded({extended: true}))
+router.use('/search', bodyParse.urlencoded({extended: true}))
 
 router.get('/', async (req, res) => {
 
     if (currentUser) {
-        const videos = await Video.find();
-        res.render(process.cwd() + '/views/index.html', { "videos": videos })
+        res.render(process.cwd() + '/views/index.html')
     } else {
         res.redirect('/login')
     }
@@ -45,6 +45,20 @@ router.post('/login', async (req, res) => {
 router.get('/logout', (req, res) => {
     currentUser = null;
     res.redirect('/')
+})
+
+router.get('/search', async (req, res) => {
+    
+    const text = req.query.text
+    let videos;
+  
+    if (text === undefined || text === "") {
+        videos = await Video.find();
+    } else {
+        videos = await Video.find({name: {$regex: `.*${text}.*`, $options: 'i'}})
+    }
+
+    res.send(videos)
 })
 
 module.exports = router;

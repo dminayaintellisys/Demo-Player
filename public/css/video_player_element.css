@@ -5,7 +5,8 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    --width-video-player: 960px;
+    --width-video-player: 912px;
+    --height-video-player: 513;
 }
 
 .controls {
@@ -30,13 +31,13 @@
 #video-player-frame-title {
     width: var(--width-video-player);
     font-weight: 500;
-    margin-left: 8px;
+    margin-left: 4px;
 }
 
 #video-player {
     position: relative;
     width: var(--width-video-player);
-    height: 540px;
+    height: var(--height-video-player);
     background-color: aliceblue;
 }
 
