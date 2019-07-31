@@ -22,14 +22,16 @@ playList.onclick = (event) => {
     }
 
     if (!videoPlayerFrame) {
+
         videoPlayerFrame = new VideoPlayerFrame(main);
         
-        /*let stateObj = {
-            foo: "bar",
+        let state = {
+            name: element.dataset.name,
+            url: element.dataset.url
         };
         
-        history.pushState(stateObj, "page 2", "bar.html");
-        */
+        history.pushState(state, "Video player", "video-player");
+        
     }
 
     videoPlayerFrame.updateVideo(element.dataset.name, element.dataset.url)
@@ -91,6 +93,15 @@ function search() {
     }
 }
 
-/*history.onpopstate = (state) => {
-    console.log('onpopstate')
-}*/
+window.onpopstate = (event) => {
+
+    if (!event.state) {
+
+        main.removeChild(document.querySelector('#video-player-frame'))
+
+    } else {
+
+        videoPlayerFrame = new VideoPlayerFrame(main);
+        videoPlayerFrame.updateVideo(event.state.name, event.state.url)
+    }
+}

@@ -4,7 +4,7 @@ const bodyParse = require('body-parser')
 const User = require('../models/User')
 const Video = require('../models/Video')
 
-let currentUser = {}; // TODO: recuerda cambiar esto a null
+let currentUser = null; // TODO: recuerda cambiar esto a null
 let isInvalidUser = false;
 
 // https://expressjs.com/en/guide/routing.html
