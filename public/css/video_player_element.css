@@ -107,3 +107,59 @@ video {
     padding-top: 4px;
     padding-bottom: 4px;
 }
+
+/* Media query */
+
+
+@media (max-width: 1640px) {
+
+    #play-list-frame {
+        flex: 1 0 25%;
+        box-shadow: none;
+    }
+
+    #video-player-frame {
+        --width-video-player: 768px;
+        --height-video-player: 439;
+    }
+}
+
+@media (max-width: 1224px) {
+
+    #play-list-frame {
+        flex: 1 0 34%;
+    }
+
+    #video-player-frame {
+        --width-video-player: 624px;
+        --height-video-player: 351px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #video-player-frame {
+        flex: 0 0;
+        display: block;
+        --width-video-player: 100vw;
+        --height-video-player: 201px;
+        box-shadow: 0px 2px 3px lightgray;
+        margin: 0px;
+    }
+
+    #video-player-frame-title {
+       display: none;
+    }
+
+    #button-replay {
+        display: none;
+    }
+    
+    #button-forward {
+        display: none;
+    }
+
+    #control-bar {
+        visibility: visible;
+    }
+}

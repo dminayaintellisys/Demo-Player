@@ -1,14 +1,16 @@
 import {VideoPlayerFrame} from './VideoPlayerFrame.mjs';
 
+const header = document.querySelector('header')
 const main = document.querySelector('main')
 const playList = document.querySelector('#play-list')
+const searchFrame = document.querySelector('#search-frame')
 const inputSearch = document.querySelector('#input-search')
 const buttonSearch = document.querySelector('#button-search')
 
 const xHttp = new XMLHttpRequest();
-var videoPlayerFrame = null;
-// videoPlayerFrame.updateVideo('Driving', 'https://www.videvo.net/videvo_files/converted/2017_12/preview/171124_C1_HD_012.mp449869.webm')
-
+let videoPlayerFrame = null;
+const mediaQuery = window.matchMedia("(max-width: 768px)");
+const mediaQueryHover = window.matchMedia("(hover: hover)");
 
 search()
 
@@ -31,30 +33,39 @@ playList.onclick = (event) => {
         };
         
         history.pushState(state, "Video player", "video-player");
+
+        if (mediaQuery.matches) {
+
+            header.style.display = "none"
+            searchFrame.style.display = "none"
+        }
         
     }
 
     videoPlayerFrame.updateVideo(element.dataset.name, element.dataset.url)
 }
 
-playList.onmouseover = (event) => {
+if (mediaQueryHover.matches) {
+    
+    playList.onmouseover = (event) => {
 
-    const element = event.target
-    if (element.nodeName != "LI") return;
+        const element = event.target
+        if (element.nodeName != "LI") return;
 
-    const video = element.querySelector('video')
+        const video = element.querySelector('video')
 
-    video.play()
-}
+        video.play()
+    }
 
-playList.onmouseout = (event) => {
+    playList.onmouseout = (event) => {
 
-    const element = event.target
-    if (element.nodeName != "LI") return;
+        const element = event.target
+        if (element.nodeName != "LI") return;
 
-    const video = element.querySelector('video')
+        const video = element.querySelector('video')
 
-    video.pause()
+        video.pause()
+    }
 }
 
 buttonSearch.onclick = search
@@ -98,6 +109,12 @@ window.onpopstate = (event) => {
     if (!event.state) {
 
         main.removeChild(document.querySelector('#video-player-frame'))
+
+        if (mediaQuery.matches) {
+
+            header.style.display = 'flex'
+            searchFrame.style.display = "flex"
+        }
 
     } else {
 

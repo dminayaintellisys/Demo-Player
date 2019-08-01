@@ -13,6 +13,7 @@ export class VideoPlayerFrame {
         const template = document.querySelector("#video-player-template");
         parent.appendChild(template.content.cloneNode(true));
         const frame = parent.querySelector('#video-player-frame')
+        const mediaQueryHover = window.matchMedia("(hover: hover)");
 
         const close = frame.querySelector('#close');
         const videoPlayer = frame.querySelector('#video-player');
@@ -33,6 +34,7 @@ export class VideoPlayerFrame {
         let lastVolumeValue = 0.5;
         this.video.volume = lastVolumeValue;
         let isMute = false;
+        onclick()
 
         close.onclick = () => {
             // context.className = "slide-out";
@@ -46,12 +48,15 @@ export class VideoPlayerFrame {
             document.onkeydown = null;
         }
 
-        videoPlayer.onmouseover = (event) => {
-            controlsBar.style.visibility = "visible"
-        }
+        if (mediaQueryHover.matches) {
 
-        videoPlayer.onmouseout = (event) => {
-            controlsBar.style.visibility = "hidden"
+            videoPlayer.onmouseover = (event) => {    
+                controlsBar.style.visibility = "visible"
+            }
+
+            videoPlayer.onmouseout = (event) => {
+                controlsBar.style.visibility = "hidden"
+            }
         }
 
         this.buttonPlay.onclick = onclick
@@ -135,9 +140,26 @@ export class VideoPlayerFrame {
         document.onfullscreenchange = () => {
 
             if (document.fullscreen) {
+
                 frame.style.setProperty('--width-video-player', '100vw');
+
             } else {
-                frame.style.setProperty('--width-video-player', '960px');
+
+                if (window.matchMedia('(max-width: 1640px)').matches) {
+
+                    frame.style.setProperty('--width-video-player', '768px');
+
+                } else if (window.matchMedia('(max-width: 1224px)').matches) {
+                  
+                    frame.style.setProperty('--width-video-player', '624px');
+                
+                } else if (window.matchMedia('(max-width: 768px)').matches) {
+
+
+                } else {
+
+                    frame.style.setProperty('--width-video-player', '960px');
+                }
             }
         }
 

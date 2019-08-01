@@ -55,3 +55,12 @@ main {
     text-align: center;
     margin-top: 36px;
 }
+
+/* Media query */
+
+@media (max-width: 768px) {
+
+    #login-frame {
+        box-shadow: none;
+    }
+}
