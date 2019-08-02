@@ -1,16 +1,22 @@
 import {VideoPlayerFrame} from './VideoPlayerFrame.mjs';
 
 const header = document.querySelector('header')
+const title = document.querySelector('#title')
 const main = document.querySelector('main')
 const playList = document.querySelector('#play-list')
 const searchFrame = document.querySelector('#search-frame')
 const inputSearch = document.querySelector('#input-search')
 const buttonSearch = document.querySelector('#button-search')
+const buttonClosePlayer = document.querySelector('#close-player')
+const logout = document.querySelector('nav a')
 
 const xHttp = new XMLHttpRequest();
 let videoPlayerFrame = null;
-const mediaQuery = window.matchMedia("(max-width: 768px)");
+const mediaQuery768px = window.matchMedia("(max-width: 768px)");
 const mediaQueryHover = window.matchMedia("(hover: hover)");
+
+buttonSearch.onclick = search
+buttonClosePlayer.onclick = closePlayer
 
 search()
 
@@ -32,14 +38,12 @@ playList.onclick = (event) => {
             url: element.dataset.url
         };
         
-        history.pushState(state, "Video player", "video-player");
+        // history.pushState(state, "Video player", "video-player");
 
-        if (mediaQuery.matches) {
+        if (mediaQuery768px.matches) {
 
-            header.style.display = "none"
-            searchFrame.style.display = "none"
+            setStyleVideoPlayerShow()
         }
-        
     }
 
     videoPlayerFrame.updateVideo(element.dataset.name, element.dataset.url)
@@ -68,7 +72,41 @@ if (mediaQueryHover.matches) {
     }
 }
 
-buttonSearch.onclick = search
+window.onpopstate = (event) => {
+
+    if (!event.state) {
+
+        closePlayer()
+
+    } else {
+
+        videoPlayerFrame = new VideoPlayerFrame(main);
+        videoPlayerFrame.updateVideo(event.state.name, event.state.url)
+    }
+} 
+
+mediaQuery768px.addListener((query) => {
+
+    if (query.matches) {
+
+        header.style.height = "64px"
+        header.style.boxShadow = "none"
+        title.style.fontSize = '1.3em'
+
+        if (!VideoPlayerFrame.exists()) return;
+
+        setStyleVideoPlayerShow()
+
+    } else {
+
+        setStyleVideoPlayerHide()
+
+        header.style.height = "72px"
+        header.style.boxShadow = "0px 2px 8px lightgray"
+        title.style.fontSize = '1.5em'
+    }
+
+});
 
 function search() {
 
@@ -82,8 +120,6 @@ function search() {
             const videos = JSON.parse(xHttp.response)
             const template = document.querySelector("#item-template")
 
-            console.log('search()')
-
             playList.innerHTML = ""
     
             for (let video of videos) {
@@ -92,11 +128,13 @@ function search() {
                 const li = content.querySelector('li');
                 const videoElement = content.querySelector('video');
                 const title = content.querySelector('h3')
+                const user = content.querySelector('h4');
     
                 li.dataset.name = video.name;
                 li.dataset.url = video.url;
                 videoElement.src = video.url;
                 title.innerText = video.name;
+                user.innerText = video.user.name;
     
                 playList.appendChild(content);
             }
@@ -104,21 +142,38 @@ function search() {
     }
 }
 
-window.onpopstate = (event) => {
+function closePlayer() {
 
-    if (!event.state) {
+    main.removeChild(document.querySelector('#video-player-frame'))
 
-        main.removeChild(document.querySelector('#video-player-frame'))
+    if (mediaQuery768px.matches) {
 
-        if (mediaQuery.matches) {
-
-            header.style.display = 'flex'
-            searchFrame.style.display = "flex"
-        }
-
-    } else {
-
-        videoPlayerFrame = new VideoPlayerFrame(main);
-        videoPlayerFrame.updateVideo(event.state.name, event.state.url)
+        setStyleVideoPlayerHide()  
     }
+}
+
+function setStyleVideoPlayerShow() {
+
+    header.style.backgroundColor = "#222"
+    header.style.boxShadow = "0px 3px 3px lightgray"
+    header.style.height = "50px"
+    title.style.color = "white"
+    title.style.fontSize = '1.1em'
+    searchFrame.style.display = "none"
+    buttonClosePlayer.style.display = "inline"
+    logout.style.display = "none"
+}
+
+function setStyleVideoPlayerHide() {
+
+    header.style.display = 'flex'
+    header.style.backgroundColor = 'white'
+    header.style.boxShadow = "none"
+    header.style.height = "64px"
+    searchFrame.style.display = "flex"
+    title.style.color = "var(--primary-color)"
+    title.style.fontSize = '1.3em'
+    title.innerText = "Demo Player"
+    logout.style.display = "inline"
+    buttonClosePlayer.style.display = "none" 
 }

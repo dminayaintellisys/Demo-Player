@@ -15,6 +15,7 @@
         <h2 id="title">Demo Player</h2>
         <nav>
             <a href="/logout">Logout</a>
+            <button id="close-player" class="mdc-icon-button material-icons">close</button>
         </nav>
     </header>
 
@@ -27,19 +28,15 @@
                     <button id="button-search" class="material-icons" type="submit">search</button>
                 </form>
             </div>
-            <ul id="play-list">
-                <!-- TODO: recuerda eliminar este codigo -->
-                <!--{{#each videos}}
-                    <li data-name="{{this.name}}" data-url="{{this.url}}">
-                        <video src="{{this.url}}"></video>
-                        <h3>{{this.name}}</h3>
-                    </li>
-                {{/each}}-->
-            </ul>
+            <ul id="play-list"></ul>
             <template id="item-template">
                 <li>
-                    <video></video>
-                    <h3></h3>
+                    <video muted></video>
+                    <div>
+                        <h3></h3>
+                        <h4></h4>
+                    </div>
+                    
                 </li>
             </template>
         </div>

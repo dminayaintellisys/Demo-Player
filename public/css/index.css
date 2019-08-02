@@ -33,7 +33,11 @@ nav a {
     text-decoration: none;
     color: black;
     margin-right: 24px;
+}
 
+#close-player {
+    display: none;
+    color: white;
 }
 
 main {
@@ -110,13 +114,29 @@ li > video {
     pointer-events: none;
 }
 
-li > h3 {
+li > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+li h3 {
     margin-left: 4px;
     font-size: 1.2em;
     pointer-events: none;
     font-weight: normal;
 }
 
+li h4 {
+    visibility: hidden;
+    font-weight: normal;
+    margin-right: 4px;
+    color: #222;
+}
+
+li:hover h4 {
+    visibility: visible;
+}
+ 
 .slide-in { 
     animation: slide-in 6100ms; 
 }
@@ -150,7 +170,7 @@ li > h3 {
     }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 1000px) {
 
     #search-frame > form {
         min-width: 272px;
@@ -187,5 +207,34 @@ li > h3 {
 
     #close {
         display: none;
+    }
+
+    li h4 {
+        visibility: visible;
+    }
+
+    #search-frame > form {
+        min-width: 304px;
+    }
+
+    li > video {
+        width: 304px;
+        height: 171px;
+    }
+}
+
+@media (max-width: 320px) {
+
+    #search-frame > form {
+        min-width: 272px;
+    }
+
+    li > video {
+        width: 272px;
+        height: 153px;
+    }
+
+    li > h3 {
+        font-size: 1.1em;
     }
 }
