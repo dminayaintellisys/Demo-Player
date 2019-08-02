@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="css/index.css" rel="stylesheet">
@@ -14,6 +15,7 @@
         <h2 id="title">Demo Player</h2>
         <nav>
             <a href="/logout">Logout</a>
+            <button id="close-player" class="mdc-icon-button material-icons">close</button>
         </nav>
     </header>
 
@@ -26,19 +28,15 @@
                     <button id="button-search" class="material-icons" type="submit">search</button>
                 </form>
             </div>
-            <ul id="play-list">
-                <!-- TODO: recuerda eliminar este codigo -->
-                <!--{{#each videos}}
-                    <li data-name="{{this.name}}" data-url="{{this.url}}">
-                        <video src="{{this.url}}"></video>
-                        <h3>{{this.name}}</h3>
-                    </li>
-                {{/each}}-->
-            </ul>
+            <ul id="play-list"></ul>
             <template id="item-template">
                 <li>
-                    <video></video>
-                    <h3></h3>
+                    <video muted></video>
+                    <div>
+                        <h3></h3>
+                        <h4></h4>
+                    </div>
+                    
                 </li>
             </template>
         </div>

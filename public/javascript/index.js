@@ -1,14 +1,22 @@
 import {VideoPlayerFrame} from './VideoPlayerFrame.mjs';
 
+const header = document.querySelector('header')
+const title = document.querySelector('#title')
 const main = document.querySelector('main')
 const playList = document.querySelector('#play-list')
+const searchFrame = document.querySelector('#search-frame')
 const inputSearch = document.querySelector('#input-search')
 const buttonSearch = document.querySelector('#button-search')
+const buttonClosePlayer = document.querySelector('#close-player')
+const logout = document.querySelector('nav a')
 
 const xHttp = new XMLHttpRequest();
-var videoPlayerFrame = null;
-// videoPlayerFrame.updateVideo('Driving', 'https://www.videvo.net/videvo_files/converted/2017_12/preview/171124_C1_HD_012.mp449869.webm')
+let videoPlayerFrame = null;
+const mediaQuery768px = window.matchMedia("(max-width: 768px)");
+const mediaQueryHover = window.matchMedia("(hover: hover)");
 
+buttonSearch.onclick = search
+buttonClosePlayer.onclick = closePlayer
 
 search()
 
@@ -30,34 +38,75 @@ playList.onclick = (event) => {
             url: element.dataset.url
         };
         
-        history.pushState(state, "Video player", "video-player");
-        
+        // history.pushState(state, "Video player", "video-player");
+
+        if (mediaQuery768px.matches) {
+
+            setStyleVideoPlayerShow()
+        }
     }
 
     videoPlayerFrame.updateVideo(element.dataset.name, element.dataset.url)
 }
 
-playList.onmouseover = (event) => {
+if (mediaQueryHover.matches) {
+    
+    playList.onmouseover = (event) => {
 
-    const element = event.target
-    if (element.nodeName != "LI") return;
+        const element = event.target
+        if (element.nodeName != "LI") return;
 
-    const video = element.querySelector('video')
+        const video = element.querySelector('video')
 
-    video.play()
+        video.play()
+    }
+
+    playList.onmouseout = (event) => {
+
+        const element = event.target
+        if (element.nodeName != "LI") return;
+
+        const video = element.querySelector('video')
+
+        video.pause()
+    }
 }
 
-playList.onmouseout = (event) => {
+window.onpopstate = (event) => {
 
-    const element = event.target
-    if (element.nodeName != "LI") return;
+    if (!event.state) {
 
-    const video = element.querySelector('video')
+        closePlayer()
 
-    video.pause()
-}
+    } else {
 
-buttonSearch.onclick = search
+        videoPlayerFrame = new VideoPlayerFrame(main);
+        videoPlayerFrame.updateVideo(event.state.name, event.state.url)
+    }
+} 
+
+mediaQuery768px.addListener((query) => {
+
+    if (query.matches) {
+
+        header.style.height = "64px"
+        header.style.boxShadow = "none"
+        title.style.fontSize = '1.3em'
+
+        if (!VideoPlayerFrame.exists()) return;
+
+        setStyleVideoPlayerShow()
+
+    } else {
+
+        setStyleVideoPlayerHide()
+
+        header.style.height = "72px"
+        header.style.boxShadow = "0px 2px 8px lightgray"
+        title.style.fontSize = '1.5em'
+    }
+
+});
 
 function search() {
 
@@ -71,8 +120,6 @@ function search() {
             const videos = JSON.parse(xHttp.response)
             const template = document.querySelector("#item-template")
 
-            console.log('search()')
-
             playList.innerHTML = ""
     
             for (let video of videos) {
@@ -81,11 +128,13 @@ function search() {
                 const li = content.querySelector('li');
                 const videoElement = content.querySelector('video');
                 const title = content.querySelector('h3')
+                const user = content.querySelector('h4');
     
                 li.dataset.name = video.name;
                 li.dataset.url = video.url;
                 videoElement.src = video.url;
                 title.innerText = video.name;
+                user.innerText = video.user.name;
     
                 playList.appendChild(content);
             }
@@ -93,15 +142,38 @@ function search() {
     }
 }
 
-window.onpopstate = (event) => {
+function closePlayer() {
 
-    if (!event.state) {
+    main.removeChild(document.querySelector('#video-player-frame'))
 
-        main.removeChild(document.querySelector('#video-player-frame'))
+    if (mediaQuery768px.matches) {
 
-    } else {
-
-        videoPlayerFrame = new VideoPlayerFrame(main);
-        videoPlayerFrame.updateVideo(event.state.name, event.state.url)
+        setStyleVideoPlayerHide()  
     }
+}
+
+function setStyleVideoPlayerShow() {
+
+    header.style.backgroundColor = "#222"
+    header.style.boxShadow = "0px 3px 3px lightgray"
+    header.style.height = "50px"
+    title.style.color = "white"
+    title.style.fontSize = '1.1em'
+    searchFrame.style.display = "none"
+    buttonClosePlayer.style.display = "inline"
+    logout.style.display = "none"
+}
+
+function setStyleVideoPlayerHide() {
+
+    header.style.display = 'flex'
+    header.style.backgroundColor = 'white'
+    header.style.boxShadow = "none"
+    header.style.height = "64px"
+    searchFrame.style.display = "flex"
+    title.style.color = "var(--primary-color)"
+    title.style.fontSize = '1.3em'
+    title.innerText = "Demo Player"
+    logout.style.display = "inline"
+    buttonClosePlayer.style.display = "none" 
 }

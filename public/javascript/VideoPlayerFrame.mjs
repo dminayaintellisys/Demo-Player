@@ -14,6 +14,11 @@ export class VideoPlayerFrame {
         parent.appendChild(template.content.cloneNode(true));
         const frame = parent.querySelector('#video-player-frame')
 
+        const mediaQueryHover = window.matchMedia("(hover: hover)");
+        const mediaQuery1640px = window.matchMedia('(max-width: 1640px)')
+        const mediaQuery1224px = window.matchMedia('(max-width: 1224px)')
+        this.mediaQuery768px = window.matchMedia('(max-width: 768px)')
+
         const close = frame.querySelector('#close');
         const videoPlayer = frame.querySelector('#video-player');
         const controlsBar = frame.querySelector('#control-bar');
@@ -31,30 +36,41 @@ export class VideoPlayerFrame {
         const touchProgress = frame.querySelector('#touch-progress');
 
         let lastVolumeValue = 0.5;
-        this.video.volume = lastVolumeValue;
         let isMute = false;
+        let isTouch = false;
+        let timeoutId;
+        this.video.volume = lastVolumeValue;
+        this.buttonPlay.onclick = onclick
+        
 
         close.onclick = () => {
-            // context.className = "slide-out";
-
-            frame.addEventListener("animationend", (e) => {
-                console.log('animation end')
-
-            }, false);
-
             parent.removeChild(frame)
-            document.onkeydown = null;
         }
 
-        videoPlayer.onmouseover = (event) => {
-            controlsBar.style.visibility = "visible"
-        }
+        if (mediaQueryHover.matches) {
 
-        videoPlayer.onmouseout = (event) => {
-            controlsBar.style.visibility = "hidden"
-        }
+            videoPlayer.onmouseover = (event) => {    
+                controlsBar.style.visibility = "visible"
+                cancelTimeout()
+            }
 
-        this.buttonPlay.onclick = onclick
+            videoPlayer.onmouseout = (event) => {
+                countDownTohiddenControlBar()
+            }
+
+        } else {
+
+            videoPlayer.onclick = (event) => {
+
+                if (!isTouch) {
+                    controlsBar.style.visibility = "visible"
+                } else {
+                    controlsBar.style.visibility = "hidden"
+                }
+    
+                isTouch = !isTouch
+            }
+        }
 
         this.video.onloadedmetadata = () => {
             finalTime.innerText = formatCurrentTime(this.video.duration)
@@ -78,7 +94,7 @@ export class VideoPlayerFrame {
             context.video.currentTime = percent * percentTime;
         }
 
-        buttonVolume.onclick = () => {
+        buttonVolume.onclick = (event) => {
 
             if (!isMute) {
 
@@ -86,7 +102,6 @@ export class VideoPlayerFrame {
                 buttonVolume.innerText = 'volume_off';
                 volumen.disabled = true;
                 volumen.value = 0;
-                
 
             } else {
 
@@ -135,9 +150,20 @@ export class VideoPlayerFrame {
         document.onfullscreenchange = () => {
 
             if (document.fullscreen) {
+
                 frame.style.setProperty('--width-video-player', '100vw');
+
             } else {
-                frame.style.setProperty('--width-video-player', '960px');
+
+                if (this.mediaQuery768px.matches) {
+                    frame.style.setProperty('--width-video-player', '100vw');
+                } else if (mediaQuery1224px.matches) {
+                    frame.style.setProperty('--width-video-player', '624px');
+                } else if (mediaQuery1640px.matches) {
+                    frame.style.setProperty('--width-video-player', '768px');
+                } else {
+                    frame.style.setProperty('--width-video-player', '960px');
+                }
             }
         }
 
@@ -170,7 +196,7 @@ export class VideoPlayerFrame {
             event.preventDefault();
         }
 
-        function onclick() {
+        function onclick(event) {
             
             if (context.video.paused || context.video.ended) {
                 context.video.play();
@@ -179,9 +205,11 @@ export class VideoPlayerFrame {
                 context.video.pause();
                 context.buttonPlay.innerText = "play_arrow";
             }
+
+            if (event != undefined) event.stopPropagation();
         }
 
-        function volumeUp(value) {
+        function volumeUp() {
 
             const volumeValue = Math.round((context.video.volume + 0.1) * 10) / 10;
 
@@ -227,15 +255,31 @@ export class VideoPlayerFrame {
 
             return '00:' + valueTrunc;
         }
+
+        function countDownTohiddenControlBar() {
+
+            timeoutId = setTimeout(() => {
+                controlsBar.style.visibility = "hidden";
+                isTouch = false;
+            }, 2000)
+        }
+
+        function cancelTimeout() {
+            window.clearTimeout(timeoutId);
+        }
     }
 
     updateVideo(name, path) {
 
         this.video.src = `${path}`;
         this.title.innerText = name;
-
         this.buttonPlay.innerText = "play_arrow"
         this.progress.progress = 0;
+        this.buttonPlay.click();
+
+        if (this.mediaQuery768px.matches) {
+            document.querySelector('#title').innerText = name;
+        }
     }
 
     static exists() {

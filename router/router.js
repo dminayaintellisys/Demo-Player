@@ -53,9 +53,9 @@ router.get('/search', async (req, res) => {
     let videos;
   
     if (text === undefined || text === "") {
-        videos = await Video.find();
+        videos = await Video.find().populate('user');
     } else {
-        videos = await Video.find({name: {$regex: `.*${text}.*`, $options: 'i'}})
+        videos = await Video.find({name: {$regex: `.*${text}.*`, $options: 'i'}}).populate('user')
     }
 
     res.send(videos)
