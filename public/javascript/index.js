@@ -43,7 +43,6 @@ playList.onclick = (event) => {
         // history.pushState(state, "Video player", "video-player");
 
         if (mediaQuery768px.matches) {
-
             setStyleVideoPlayerShow()
         }
     }
@@ -112,6 +111,8 @@ mediaQuery768px.addListener((query) => {
 
 function search() {
 
+    console.log("search");
+
     xHttp.open("GET", `/search/?text=${encodeURIComponent(inputSearch.value)}`, true);
     xHttp.send()
 
@@ -140,8 +141,12 @@ function search() {
     
                 playList.appendChild(content);
             }
+
+            console.log("search 2");
         }
     }
+
+    console.log("search 3");
 }
 
 function closePlayer() {

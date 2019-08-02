@@ -41,7 +41,6 @@ export class VideoPlayerFrame {
         let timeoutId;
         this.video.volume = lastVolumeValue;
         this.buttonPlay.onclick = onclick
-        
 
         close.onclick = () => {
             parent.removeChild(frame)
@@ -173,6 +172,8 @@ export class VideoPlayerFrame {
 
                 case VideoPlayerFrame.KEY_SPACE:
                     onclick()
+                    event.stopPropagation();
+                    event.preventDefault();
                     break;
 
                 case VideoPlayerFrame.KEY_ARROW_LEFT:
@@ -191,9 +192,6 @@ export class VideoPlayerFrame {
                     volumeDown()
                     break;
             }
-
-            event.stopPropagation();
-            event.preventDefault();
         }
 
         function onclick(event) {
