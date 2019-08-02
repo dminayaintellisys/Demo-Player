@@ -18,7 +18,7 @@ const mediaQueryHover = window.matchMedia("(hover: hover)");
 buttonSearch.onclick = search
 buttonClosePlayer.onclick = closePlayer
 
-// Esta linea colisiona con la rama testcollicion1
+// Esta linea colisionaba con la rama principal, el problema se resolvio.
 
 search()
 
