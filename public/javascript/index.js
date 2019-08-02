@@ -18,6 +18,8 @@ const mediaQueryHover = window.matchMedia("(hover: hover)");
 buttonSearch.onclick = search
 buttonClosePlayer.onclick = closePlayer
 
+// Esta linea colisiona con la rama testcollicion1
+
 search()
 
 playList.onclick = (event) => {
